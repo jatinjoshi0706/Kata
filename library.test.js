@@ -1,4 +1,4 @@
-const Library = require('./app');
+const Library = require("./app");
 
 describe("Library Management System - Add and View Books", () => {
   let library;
@@ -52,7 +52,6 @@ describe("Library Management System - Add and View Books", () => {
     });
   });
 
-  // Test for borrowing books
   describe("Borrow Books", () => {
     test("should borrow a book successfully", () => {
       library.addBook("12345", "Book One", "Author A", 2021);
@@ -72,6 +71,29 @@ describe("Library Management System - Add and View Books", () => {
       expect(() => {
         library.borrowBook("12345"); // Try to borrow it again
       }).toThrow("Book is currently not available.");
+    });
+  });
+
+  // Test to return the book
+  describe("Return Books", () => {
+    test("should return a book successfully", () => {
+      library.addBook("12345", "Book One", "Author A", 2021);
+      library.borrowBook("12345"); // Borrow the book first
+      library.returnBook("12345"); // Now return it
+      expect(library.books[0].isAvailable).toBe(true); // Verify that the book is now available
+    });
+
+    test("should not allow returning a non-existent book", () => {
+      expect(() => {
+        library.returnBook("99999"); // ISBN that doesn't exist
+      }).toThrow("Book not found.");
+    });
+
+    test("should not allow returning a book that was not borrowed", () => {
+      library.addBook("12345", "Book One", "Author A", 2021);
+      expect(() => {
+        library.returnBook("12345"); // Try to return it without borrowing first
+      }).toThrow("Book was not borrowed.");
     });
   });
 });
