@@ -1,0 +1,48 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+*.pid
+*.pid.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Node.js dependencies
+/node_modules/
+
+# Test coverage
+/coverage/
+
+# Environment variables
+.env
+
+# Build output
+/dist/
+.build/
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+
+# Jest cache
+/jest-cache/
+/jest-output/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Other system files
+*.bak
+*.backup
+*.orig
+
+# Ignore uploaded files for shared development
+/uploads/

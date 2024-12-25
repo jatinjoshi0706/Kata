@@ -1,0 +1,22 @@
+{
+  "name": "kata",
+  "version": "1.0.0",
+  "description": "Library Management System",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jatinjoshi0706/Kata.git"
+  },
+  "author": "Jatin Joshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jatinjoshi0706/Kata/issues"
+  },
+  "homepage": "https://github.com/jatinjoshi0706/Kata#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
