@@ -40,6 +40,18 @@ class Library {
     }
     book.isAvailable = false;
   }
+
+    // Return a book by ISBN
+    returnBook(isbn) {
+        const book = this.books.find((book) => book.isbn === isbn);
+        if (!book) {
+          throw new Error("Book not found.");
+        }
+        if (book.isAvailable) {
+          throw new Error("Book was not borrowed.");
+        }
+        book.isAvailable = true;
+      }
 }
 
 const library = new Library();
@@ -53,6 +65,7 @@ function showMenu() {
   console.log("1. Add Book");
   console.log("2. Borrow Book");
   console.log("3. View Available Books");
+  console.log("4. Return Book");
   console.log("Press 'q' to quit.");
   rl.question("Choose an option: ", handleInput);
 }
@@ -104,6 +117,17 @@ function handleInput(input) {
         console.log("No books available.");
       }
       showMenu();
+      break;
+      case "4":
+      rl.question("Enter ISBN of the book to return: ", (isbn) => {
+        try {
+          library.returnBook(isbn.trim());
+          console.log("Book returned successfully!");
+        } catch (error) {
+          console.log(error.message);
+        }
+        showMenu();
+      });
       break;
     default:
       console.log("Invalid option. Please try again.");
