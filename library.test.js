@@ -51,4 +51,27 @@ describe("Library Management System - Add and View Books", () => {
       expect(availableBooks.length).toBe(0);
     });
   });
+
+  // Test for borrowing books
+  describe("Borrow Books", () => {
+    test("should borrow a book successfully", () => {
+      library.addBook("12345", "Book One", "Author A", 2021);
+      library.borrowBook("12345");
+      expect(library.books[0].isAvailable).toBe(false); // Verify that the book is now unavailable
+    });
+
+    test("should not allow borrowing a non-existent book", () => {
+      expect(() => {
+        library.borrowBook("99999"); // ISBN that doesn't exist
+      }).toThrow("Book not found.");
+    });
+
+    test("should not allow borrowing an unavailable book", () => {
+      library.addBook("12345", "Book One", "Author A", 2021);
+      library.borrowBook("12345"); // First borrow the book
+      expect(() => {
+        library.borrowBook("12345"); // Try to borrow it again
+      }).toThrow("Book is currently not available.");
+    });
+  });
 });
