@@ -24,8 +24,21 @@ class Library {
     this.books.push(newBook);
   }
 
+  // View Books
   viewAvailableBooks() {
     return this.books.filter((book) => book.isAvailable);
+  }
+
+  // Borrow a book by ISBN
+  borrowBook(isbn) {
+    const book = this.books.find((book) => book.isbn === isbn);
+    if (!book) {
+      throw new Error("Book not found.");
+    }
+    if (!book.isAvailable) {
+      throw new Error("Book is currently not available.");
+    }
+    book.isAvailable = false;
   }
 }
 
@@ -38,7 +51,8 @@ const rl = readline.createInterface({
 function showMenu() {
   console.log("\nLibrary Management System:");
   console.log("1. Add Book");
-  console.log("2. View Available Books");
+  console.log("2. Borrow Book");
+  console.log("3. View Available Books");
   console.log("Press 'q' to quit.");
   rl.question("Choose an option: ", handleInput);
 }
@@ -69,6 +83,17 @@ function handleInput(input) {
       );
       break;
     case "2":
+      rl.question("Enter ISBN of the book to borrow: ", (isbn) => {
+        try {
+          library.borrowBook(isbn.trim());
+          console.log("Book borrowed successfully!");
+        } catch (error) {
+          console.log(error.message);
+        }
+        showMenu();
+      });
+      break;
+    case "3":
       const availableBooks = library.viewAvailableBooks();
       if (availableBooks.length > 0) {
         console.log("\nAvailable Books:");
