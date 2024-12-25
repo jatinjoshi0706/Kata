@@ -23,6 +23,10 @@ class Library {
     const newBook = new Book(isbn, title, author, publicationYear);
     this.books.push(newBook);
   }
+
+  viewAvailableBooks() {
+    return this.books.filter((book) => book.isAvailable);
+  }
 }
 
 const library = new Library();
@@ -34,6 +38,7 @@ const rl = readline.createInterface({
 function showMenu() {
   console.log("\nLibrary Management System:");
   console.log("1. Add Book");
+  console.log("2. View Available Books");
   console.log("Press 'q' to quit.");
   rl.question("Choose an option: ", handleInput);
 }
@@ -62,6 +67,18 @@ function handleInput(input) {
           showMenu();
         }
       );
+      break;
+    case "2":
+      const availableBooks = library.viewAvailableBooks();
+      if (availableBooks.length > 0) {
+        console.log("\nAvailable Books:");
+        availableBooks.forEach((book) => {
+          console.log(`${book.title} by ${book.author} (ISBN: ${book.isbn})`);
+        });
+      } else {
+        console.log("No books available.");
+      }
+      showMenu();
       break;
     default:
       console.log("Invalid option. Please try again.");
